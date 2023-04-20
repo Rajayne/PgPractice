@@ -22,5 +22,15 @@ router.get('/search', async (req, res, next) => {
     }
 })
 
+router.post('/', async (req, res, next) => {
+    try {
+        const {name, type} = req.body;
+        // RETURNING returns values
+        const results = await db.query(`INSERT INTO users (name, type) VALUES ($1, $2) RETURNING *`, [name, type]);
+        return res.status(201).json(results.rows[0]);
+    } catch (e) {
+        return next(e);
+    }
+})
 
 module.exports = router;
