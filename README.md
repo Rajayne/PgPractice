@@ -36,3 +36,16 @@ Opening psql in a directory then using command \i data.sql will seed a database
 Two methods to returning JSON data from two different tables
 
 1. Use two queries, one to select from each table
+
+2. Create joins
+
+```
+SQL query for messages and tags
+---
+SELECT m.id, m.msg, t.tag
+FROM messages AS m
+LEFT JOIN message_tags AS mt
+ON m.id = mt.message_id
+LEFT JOIN tags AS t
+ON mt.tag_code = t.code
+```
