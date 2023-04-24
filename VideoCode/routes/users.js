@@ -1,24 +1,26 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
+const ExpressError = require("../expressError");
 
-router.get("/all", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const allUsers = await db.query(`SELECT * FROM USERS`);
-    return res.json(allUsers.rows);
+    return res.json({ users: allUsers.rows });
   } catch (e) {
     return next(e);
   }
 });
 
-router.get("/search", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
-    const { type } = req.query;
+    const { id } = req.params;
     // Use $var not ${var} in query to prevent SQL injection and sanitize input
-    const usersByType = await db.query(`SELECT * FROM users WHERE type=$1`, [
-      type,
-    ]);
-    return res.json(usersByType.rows);
+    const userById = await db.query(`SELECT * FROM users WHERE id=$1`, [id]);
+    if (userById.rows.length === 0) {
+      throw new ExpressError(`No user found with id of ${id}`, 404);
+    }
+    return res.send({ user: userById.rows[0] });
   } catch (e) {
     return next(e);
   }
@@ -32,7 +34,7 @@ router.post("/", async (req, res, next) => {
       `INSERT INTO users (name, type) VALUES ($1, $2) RETURNING *`,
       [name, type]
     );
-    return res.status(201).json(newUser.rows[0]);
+    return res.status(201).json({ user: newUser.rows[0] });
   } catch (e) {
     return next(e);
   }
@@ -41,12 +43,15 @@ router.post("/", async (req, res, next) => {
 router.patch("/:id", async (req, res, next) => {
   try {
     const { name, type } = req.body;
-    const { id } = req.params.id;
+    const { id } = req.params;
     const updateUser = await db.query(
       `UPDATE users SET name=$1, type=$2 WHERE id=$3 RETURNING id, name, type`,
       [name, type, id]
     );
-    return res.send(updateUser.rows[0]);
+    if (updateUser.rows.length === 0) {
+      throw new ExpressError(`Cannot update user with id of ${id}`, 404);
+    }
+    return res.send({ user: updateUser.rows[0] });
   } catch (e) {
     return next(e);
   }

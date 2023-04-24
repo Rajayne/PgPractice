@@ -13,7 +13,7 @@ app.use((req, res, next) => {
   return next(err);
 });
 
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
   // the default status is 500 Internal Server Error
   let status = err.status || 500;
   // set the status and alert the user
