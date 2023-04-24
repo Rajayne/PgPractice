@@ -26,3 +26,13 @@ Can use variables in queries but exposes db to SQL Injection, manipulation of qu
 # Testing
 
 When testing, remember to create test database and to end connection to database after all tests are run to prevent async script from running continuously.
+
+# Seeding database
+
+Opening psql in a directory then using command \i data.sql will seed a database
+
+# One to Many Relationship
+
+Two methods to returning JSON data from two different tables
+
+1. Use two queries, one to select from each table

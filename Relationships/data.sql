@@ -1,8 +1,7 @@
-DROP DATABASE IF EXISTS usersdb_test;
+DROP DATABASE IF EXISTS pgrelationships;
+CREATE DATABASE pgrelationships;
 
-CREATE DATABASE usersdb_test;
-
-\c usersdb_test;
+\c pgrelationships;
 
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS messages CASCADE;
