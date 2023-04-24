@@ -21,4 +21,23 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.post("/", async (req, res, next) => {
+  try {
+    const { name, age } = req.body;
+    const cat = await Cat.addCat(name, age);
+    return res.json(cat);
+  } catch (e) {
+    return next(e);
+  }
+});
+
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const cat = await Cat.deleteCat(req.params.id);
+    return res.json({ msg: "Deleted!" });
+  } catch (e) {
+    return next(e);
+  }
+});
+
 module.exports = router;
