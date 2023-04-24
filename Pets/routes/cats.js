@@ -12,4 +12,13 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/:id", async (req, res, next) => {
+  try {
+    const cat = await Cat.getById(req.params.id);
+    return res.json(cat);
+  } catch (e) {
+    return next(e);
+  }
+});
+
 module.exports = router;
