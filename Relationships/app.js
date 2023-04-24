@@ -6,6 +6,8 @@ app.use(express.json());
 
 const uRoutes = require("./routes/users");
 app.use("/users", uRoutes);
+const mRoutes = require("./routes/messages");
+app.use("/messages", mRoutes);
 
 app.use((req, res, next) => {
   const err = new ExpressError("Not found", 404);
