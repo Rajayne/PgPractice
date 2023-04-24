@@ -15,9 +15,27 @@ router.get("/:id", async (req, res, next) => {
       WHERE m.id=$1`,
       [req.params.id]
     );
+    if (message.rows.length === 0) {
+      throw new ExpressError(`Message not found with id ${req.params.id}`, 404);
+    }
     const { id, msg } = message.rows[0];
     const tags = message.rows.map((r) => r.tag);
     return res.json({ id, msg, tags });
+  } catch (e) {
+    return next(e);
+  }
+});
+
+router.patch("/:id", async (req, res, next) => {
+  try {
+    const message = await db.query(
+      `UPDATE messages SET msg=$1 WHERE id=$2 RETURNING id, user_id, msg`,
+      [req.body.msg, req.params.id]
+    );
+    if (message.rows.length === 0) {
+      throw new ExpressError(`Message not found with id ${req.params.id}`, 404);
+    }
+    return res.json(message.rows[0]);
   } catch (e) {
     return next(e);
   }
