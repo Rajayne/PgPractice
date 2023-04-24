@@ -49,3 +49,11 @@ ON m.id = mt.message_id
 LEFT JOIN tags AS t
 ON mt.tag_code = t.code
 ```
+
+# Refactor with OOP
+
+Object Orientation Programming helps organize code with:
+
+- Abstraction: ability to hide implementation details so everyone doesn't have to worry about writing/understanding SQL queries
+- Encapsulation: ability to group functionality into larger logical pieces
+- Polymorphism: ability to implement similar functionality in different classes (speak method: meow vs woof)
