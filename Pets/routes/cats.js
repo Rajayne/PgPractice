@@ -40,4 +40,23 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
+router.put("/:id", async (req, res, next) => {
+  try {
+    const { name, age } = req.body;
+    const cat = await Cat.updateCat(req.params.id, name, age);
+    return res.json(cat);
+  } catch (e) {
+    return next(e);
+  }
+});
+
+router.patch("/:id", async (req, res, next) => {
+  try {
+    const cat = await Cat.catBirthday(req.params.id);
+    return res.json(cat);
+  } catch (e) {
+    return next(e);
+  }
+});
+
 module.exports = router;

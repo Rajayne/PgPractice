@@ -31,6 +31,26 @@ class Cat {
       throw new ExpressError(`Cat not found with id:${id}`, 404);
     }
   }
+  static async updateCat(id, newName, newAge) {
+    const cat = await db.query(
+      `UPDATE cats SET name=$1, age=$2 WHERE id=$3 RETURNING *`,
+      [newName, newAge, id]
+    );
+    if (cat.rows.length === 0) {
+      throw new ExpressError(`Cat not found with id:${id}`, 404);
+    }
+    return cat.rows[0];
+  }
+  static async catBirthday(id) {
+    const cat = await db.query(
+      `UPDATE cats SET age=age+1 WHERE id=$1 RETURNING *`,
+      [id]
+    );
+    if (cat.rows.length === 0) {
+      throw new ExpressError(`Cat not found with id:${id}`, 404);
+    }
+    return cat.rows[0];
+  }
 }
 
 module.exports = Cat;
