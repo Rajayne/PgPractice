@@ -1,5 +1,4 @@
 const { Client } = require("pg");
-const fs = require("fs");
 const { user, password } = require("../dbPassword");
 
 //I set up a password file so that I don't forget and accidentally upload my password to github
