@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../db");
-// const Dog = require("../models/dog");
+const Dog = require("../models/dog");
 
 router.get("/", async (req, res, next) => {
   try {
-    const dogs = await db.query(`SELECT * FROM dogs`);
-    return res.json(dogs.rows);
+    const dogs = await Dog.getAll();
+    dogs.forEach((d) => d.speak());
+    return res.json(dogs);
   } catch (e) {
     return next(e);
   }
