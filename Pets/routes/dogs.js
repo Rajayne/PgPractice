@@ -21,4 +21,24 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.post("/", async (req, res, next) => {
+  try {
+    const { name, age } = req.body;
+    const dog = await Dog.addDog(name, age);
+    return res.json(dog);
+  } catch (e) {
+    return next(e);
+  }
+});
+
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const dog = await Dog.getById(req.params.id);
+    await dog.remove();
+    return res.json({ msg: "Deleted!" });
+  } catch (e) {
+    return next(e);
+  }
+});
+
 module.exports = router;
