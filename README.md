@@ -63,8 +63,26 @@ Object Orientation Programming helps organize code with:
 - Create new Pets folder and petsdb database
 - Use single quotes for strings in data.sql
 - Create cats router and get route
-- Use cat model to call route functions
+- Use cat class to call route functions
+
+```
+Pros:
+- Can be easier to write
+- May requrie running fewer SQL queries
+Cons:
+- Complicated logic may be trickier i.e. speak(id)
+- No data, only static methods
+```
 
 # Version Two
 
 - Create OO dog model and instantiate
+
+```
+Pros:
+- Easier to add validation
+- Attributes handy i.e. speak()
+- Data and real methods (mini ORM)
+Cons:
+- May require more queries
+```

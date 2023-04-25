@@ -41,4 +41,26 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
+router.patch("/:id/age", async (req, res, next) => {
+  try {
+    const dog = await Dog.getById(req.params.id);
+    dog.age += 1;
+    await dog.save();
+    return res.json(dog);
+  } catch (e) {
+    return next(e);
+  }
+});
+
+router.patch("/:id/rename", async (req, res, next) => {
+  try {
+    const dog = await Dog.getById(req.params.id);
+    dog.name = req.body.name;
+    await dog.save();
+    return res.json(dog);
+  } catch (e) {
+    return next(e);
+  }
+});
+
 module.exports = router;

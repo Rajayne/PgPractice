@@ -31,6 +31,13 @@ class Dog {
   async remove() {
     await db.query(`DELETE FROM dogs WHERE id=$1`, [this.id]);
   }
+  async save() {
+    await db.query(`UPDATE dogs SET name=$1, age=$2 WHERE id=$3`, [
+      this.name,
+      this.age,
+      this.id,
+    ]);
+  }
   speak() {
     console.log(`${this.name} says 'Woof'!`);
   }
