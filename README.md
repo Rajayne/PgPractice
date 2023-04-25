@@ -57,3 +57,14 @@ Object Orientation Programming helps organize code with:
 - Abstraction: ability to hide implementation details so everyone doesn't have to worry about writing/understanding SQL queries
 - Encapsulation: ability to group functionality into larger logical pieces
 - Polymorphism: ability to implement similar functionality in different classes (speak method: meow vs woof)
+
+# Version One
+
+- Create new Pets folder and petsdb database
+- Use single quotes for strings in data.sql
+- Create cats router and get route
+- Use cat model to call route functions
+
+# Version Two
+
+- Create OO dog model and instantiate

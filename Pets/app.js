@@ -6,6 +6,8 @@ app.use(express.json());
 
 const cRoutes = require("./routes/cats");
 app.use("/cats", cRoutes);
+const dRoutes = require("./routes/dogs");
+app.use("/dogs", dRoutes);
 
 app.use((req, res, next) => {
   const err = new ExpressError("Not found", 404);
